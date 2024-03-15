@@ -1,3 +1,8 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class Main {
@@ -20,6 +25,33 @@ public class Main {
 
     public static void viewClient(){
         System.out.println("view");
+        try (
+         Connection conn = DriverManager.getConnection(
+               "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+               "myuser", "remwell996");  
+               
+         Statement stmt = conn.createStatement();
+      ) {
+         String strSelect = "select Client_ID, Name, Email from Client";
+         System.out.println("The SQL statement is: " + strSelect + "\n");
+ 
+         ResultSet rset = stmt.executeQuery(strSelect);
+ 
+         System.out.println("The records selected are:");
+         int rowCount = 0;
+         
+         while(rset.next()) {   
+            String clientID = rset.getString("Client_ID");  
+            String name = rset.getString("Name");  
+            String    email   = rset.getString("Email");       
+            System.out.println(clientID + ", " + name + ", " + email);
+            ++rowCount;
+         }
+         System.out.println("Total number of records = " + rowCount);
+ 
+      } catch(SQLException ex) {
+         ex.printStackTrace();
+      }
         menu();
     }
 
@@ -40,6 +72,44 @@ public class Main {
 
     public static void viewService(){
         System.out.println("viewS");
+        try (
+            // Step 1: Construct a database 'Connection' object called 'conn'
+            Connection conn = DriverManager.getConnection(
+                  "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+                  "myuser", "remwell996");   // For MySQL only
+                  // The format is: "jdbc:mysql://hostname:port/databaseName", "username", "password"
+    
+            // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
+            Statement stmt = conn.createStatement();
+         ) {
+            // Step 3: Write a SQL query string. Execute the SQL query via the 'Statement'.
+            //  The query result is returned in a 'ResultSet' object called 'rset'.
+            String strSelect = "select Service_ID, Service_Status, Invoice_Status,Date_Availed,Client_ID from Services";
+            System.out.println("The SQL statement is: " + strSelect + "\n"); // Echo For debugging
+    
+            ResultSet rset = stmt.executeQuery(strSelect);
+    
+            // Step 4: Process the 'ResultSet' by scrolling the cursor forward via next().
+            //  For each row, retrieve the contents of the cells with getXxx(columnName).
+            System.out.println("The records selected are:");
+            int rowCount = 0;
+            // Row-cursor initially positioned before the first row of the 'ResultSet'.
+            // rset.next() inside the whole-loop repeatedly moves the cursor to the next row.
+            // It returns false if no more rows.
+            while(rset.next()) {   // Repeatedly process each row
+               String serviceID = rset.getString("Service_ID");  // retrieve a 'String'-cell in the row
+               String serviceStatus = rset.getString("Service_Status");  // retrieve a 'double'-cell in the row
+               String invoiceStatus   = rset.getString("Invoice_Status");       // retrieve a 'int'-cell in the row
+               String dateAvailed   = rset.getString("Date_Availed");       // retrieve a 'int'-cell in the row
+               String clientID = rset.getString("Client_ID");
+               System.out.println(serviceID + ", " + serviceStatus + ", " + invoiceStatus + ", "+ dateAvailed+", "+ clientID);
+               ++rowCount;
+            }
+            System.out.println("Total number of records = " + rowCount);
+    
+         } catch(SQLException ex) {
+            ex.printStackTrace();
+         }  // Step 5: Close conn and stmt - Done automatically by try-with-resources (JDK 7)
         menu();
     }
 
@@ -88,7 +158,6 @@ public class Main {
         }
         }while(menuCycle != 0);
         offAplication();
-
        
     }
 }
