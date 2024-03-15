@@ -61,6 +61,7 @@ public class Main {
     public static void offAplication(){
         System.out.println("WE OUT");
         System.out.println("Hello");
+        
     }
 
     public static void main(String[] args) throws Exception {
