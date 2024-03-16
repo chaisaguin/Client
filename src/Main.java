@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +25,7 @@ public class Main {
     }
 
     public static void viewClient(){
-        System.out.println("view");
+        System.out.println("VIEW CLIENT/S");
         try (
          Connection conn = DriverManager.getConnection(
                "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
@@ -56,22 +57,57 @@ public class Main {
     }
 
     public static void addClient(){
-        System.out.println("add");
+        System.out.println("ADDING CLIENT/S");
         menu();
     }
 
-    public static void deleteClient(){
-        System.out.println("delete");
+    public static void deleteClient() {
+        System.out.println("DELETE CLIENT/S");
+        
+        try (
+            Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+                "myuser", "remwell996");
+            Statement stmt = conn.createStatement();
+        ) {
+            // Execute a SQL INSERT|DELETE statement via executeUpdate(),
+         //   which returns an int indicating the number of rows affected.
+
+         System.out.print("Enter the Client ID to delete: ");
+         String clientIDToDelete = sc.nextLine();
+
+         String sqlDelete = "DELETE FROM client WHERE Client_ID = '" + clientIDToDelete +"' ";
+         System.out.println("The SQL statement is: " + sqlDelete + "\n");  // Echo for debugging
+         int countDeleted = stmt.executeUpdate(sqlDelete);
+         System.out.println(countDeleted + " records deleted.\n");
+    
+            // Display updated records (optional)
+            String strSelect = "SELECT * FROM clients";
+            ResultSet rset = stmt.executeQuery(strSelect);
+            System.out.println("The records selected are:");
+            int rowCount = 0;
+            while (rset.next()) {
+                String clientID = rset.getString("Client_ID");
+                String name = rset.getString("Name");
+                String email = rset.getString("Email");
+                System.out.println(clientID + ", " + name + ", " + email);
+                ++rowCount;
+            }
+            System.out.println("Total number of records = " + rowCount);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         menu();
     }
+    
 
     public static void updateClient(){
-        System.out.println("update");
+        System.out.println("UPDATE CLIENT/S");
         menu();
     }
 
     public static void viewService(){
-        System.out.println("viewS");
+        System.out.println("VIEW SERVICES");
         try (
             // Step 1: Construct a database 'Connection' object called 'conn'
             Connection conn = DriverManager.getConnection(
@@ -84,7 +120,7 @@ public class Main {
          ) {
             // Step 3: Write a SQL query string. Execute the SQL query via the 'Statement'.
             //  The query result is returned in a 'ResultSet' object called 'rset'.
-            String strSelect = "select Service_ID, Service_Status, Invoice_Status,Date_Availed,Client_ID from Services";
+            String strSelect = "select Service_ID, Service_Status, Service_Price, Invoice_Status,Date_Availed,Client_ID from Services";
             System.out.println("The SQL statement is: " + strSelect + "\n"); // Echo For debugging
     
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -99,10 +135,11 @@ public class Main {
             while(rset.next()) {   // Repeatedly process each row
                String serviceID = rset.getString("Service_ID");  // retrieve a 'String'-cell in the row
                String serviceStatus = rset.getString("Service_Status");  // retrieve a 'double'-cell in the row
+               String servicePrice = rset.getString("Service_Price");
                String invoiceStatus   = rset.getString("Invoice_Status");       // retrieve a 'int'-cell in the row
                String dateAvailed   = rset.getString("Date_Availed");       // retrieve a 'int'-cell in the row
                String clientID = rset.getString("Client_ID");
-               System.out.println(serviceID + ", " + serviceStatus + ", " + invoiceStatus + ", "+ dateAvailed+", "+ clientID);
+               System.out.println(serviceID + ", " + serviceStatus + ", " + servicePrice + ", " + invoiceStatus + ", "+ dateAvailed+", "+ clientID);
                ++rowCount;
             }
             System.out.println("Total number of records = " + rowCount);
