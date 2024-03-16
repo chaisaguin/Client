@@ -49,12 +49,14 @@ public class Main {
             ++rowCount;
          }
          System.out.println("Total number of records = " + rowCount);
+         System.out.println("Hello");
  
       } catch(SQLException ex) {
          ex.printStackTrace();
       }
         menu();
     }
+    
 
     public static void addClient(){
         System.out.println("ADDING CLIENT/S");
@@ -63,7 +65,7 @@ public class Main {
 
     public static void deleteClient() {
         System.out.println("DELETE CLIENT/S");
-        
+
         try (
             Connection conn = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
