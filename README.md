@@ -22,26 +22,16 @@ These are the following functions and features:
 Make sure you are done with this step: [Java Database: MySQL JBDC Driver](https://www3.ntu.edu.sg/home/ehchua/programming/java/JDBC_Basic.html?fbclid=IwAR0Tb0gT4JBpLRwxk8c-f4Wsq0uVUvcyzBW-Ms3ZOEuAw87zfWTgQLN8oQE#zz-3)
 
 1. Ensure You Have Cloned the Repository: Confirm that you’ve cloned the entire application repository from GitHub, including the **“db_dump.sql”** file.
+2. Configuring the MySQL:
 
-2. **Open your CMD:** Open your command line and locate your MySQL installation folder (usually in the MySQL bin directory). 
-*An example of the file address or file path: “C:/ProgramFiles/MySql 8.0/mysql/bin”. This is assuming MySQL is installed in that directory.*
+**Database Setup:**
+   - Begin by creating a MySQL database to store your data.
+   - Use the provided SQL dump file to establish the necessary database and initial data.
+   - Execute the SQL dump file within your MySQL environment to set up the required tables and structure.
 
-3. **Next step is to start the MySQL Database Server:** Type in **mysqld --console** in the same command line. Make sure to leave this CMD open until the end of your use of the application.
+**Configure Database Connection:**
+   - Ensure that your Java application is correctly configured to connect to the MySQL database.
+   - Modify the database connection settings within your Java program to match your MySQL database credentials and connection details.
 
-4. To connect to our database, make sure to open **ANOTHER NEW CMD** to run the client. 
-
-5. **Logging In to MySQL Server:** Once you have open another CMD, type in this command: **mysql -u myuser -p**
-The “Enter password” will show up in the next line. The password is: **remwell996**
-
-6. **Restore the Database from the Dump File:** Assuming the “managementsystem” database already exists, restore the data from the dump file: **mysql -u myuser -p managementsystem < "C:\\path\\to\\db_dump.sql"**
-
-
-7. **Verify the Database:**
-- Reconnect to MySQL:
-mysql -u myuser -p managementsystem
-
-- Check if the tables and data are intact:
-mysql> SHOW TABLES;
-mysql> SELECT * FROM table_name;
-
-8. Right then, you can be able to use our *Management System* as an admin with the privileges in **viewing, adding, deleting, updating clients and services.**
+**Data Management:**
+   - Once the database is set up and connected to your Java application, you can be able to use our *Management System* as an admin with the privileges in **viewing, adding, deleting, updating clients, services, invoices.**
