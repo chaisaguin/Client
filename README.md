@@ -23,6 +23,7 @@ Make sure you are done with this step: [Java Database: MySQL JBDC Driver](https:
 
 1. Ensure You Have Cloned the Repository: Confirm that you’ve cloned the entire application repository from GitHub, including the **“db_dump.sql”** file.
 2. Configuring the MySQL:
+
 **Database Setup:**
    - Begin by creating a MySQL database to store your data.
    - Use the provided SQL dump file to establish the necessary database and initial data.
