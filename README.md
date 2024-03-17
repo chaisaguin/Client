@@ -11,8 +11,14 @@ The workspace contains two folders by default, where:
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
+☀️ WELCOME TO CLIENT MANAGEMENT SYSTEM ✨
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## APPLICATION FEATURES
+
+
+
+## HOW TO RECREATE THE DATABASE FROM THE SQL DUMP
+--> IF YOU HAVE NOT INSTALLED MYSQL, KINDLY FOLLOW STEPS THRU THIS LINK <[OPEN THIS LINK](https://www3.ntu.edu.sg/home/ehchua/programming/sql/MySQL_HowTo.html#intro)>
+--> IF YOU HAVE INSTALLED MYSQL AND HAVE A WORKING DIRECTORY, YOU MAY PROCEED:
+1. Make sure you have turned on your mysql server
