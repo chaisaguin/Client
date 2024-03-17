@@ -42,6 +42,7 @@ public class Main {
         System.out.println("6. ADD NEW SERVICE");
         System.out.println("7. DELETE A SERVICE");
         System.out.println("8. UPDATE A SERVICE");
+        System.out.println("9. SHOW STATISTICS");
         System.out.println("ENTER 0 TO EXIT");
         System.out.print("Answer:");
         menuCycle = sc.nextInt();
@@ -85,6 +86,7 @@ public class Main {
         System.out.println("ADDING CLIENT/S");
 
         //add to show last na gi add na Client ID
+        getLastAddedClientID();
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Client name:");
@@ -283,6 +285,7 @@ public class Main {
         System.out.println("addS");
 
         //add to show last na gi add na service ID
+        getLastAddedServiceID();
 
         Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
@@ -451,8 +454,7 @@ public class Main {
                 "myuser", "remwell996");
             Statement stmt = conn.createStatement();
         ) {
-            //"UPDATE Client SET Name = '"+clientNameToUpdate+"', Email = '"+clientEmailToUpdate+"' WHERE Client_ID = '"+clientIDToUpdate+"'"
-            //Service_Type, Service_ID, Service_Status, Service_Price, Invoice_Status,Date_Added,Client_ID from Services
+
         String sqlUpdateService = "UPDATE Services SET Service_Type = '"+serviceTypeToBeUpdated+"', Service_Price = "+servicePriceToBeUpdated+", Service_Status = '"+serviceStatusToBeUpdated+"', Invoice_Status = '"+serviceInvoiceStatusToBeUpdated+"' WHERE Service_ID = '"+serviceIDToBeUpdated+"'" ;
         System.out.println("The SQL statement is: " + sqlUpdateService + "\n");  
         int countDeletedServices = stmt.executeUpdate(sqlUpdateService);
@@ -464,6 +466,151 @@ public class Main {
         menu();
     }
 
+    public static void showStatistics(){
+
+        
+        System.out.println("The mmost services is: "+getMostFrequentService());
+        System.out.println("Client with the most orders: "+getClientWithMostOrders());
+        System.out.println(calculateWeeklyRevenue());
+
+        System.out.println("Show statistics");
+        menu();
+    }
+
+    public static String getMostFrequentService() {
+        String mostFrequentService = null;
+
+        String url = "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+        String user = "myuser";
+        String password = "remwell996";
+
+        String sqlQuery = "SELECT Service_Type, COUNT(*) AS service_count " +
+                          "FROM Services " +
+                          "GROUP BY Service_Type " +
+                          "ORDER BY service_count DESC " +
+                          "LIMIT 1";
+
+        try (
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+        ) {
+            if (rs.next()) {
+                mostFrequentService = rs.getString("Service_Type");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return mostFrequentService;
+    }
+    
+    public static String getClientWithMostOrders() {
+        String clientWithMostOrders = null;
+        
+        String url = "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+        String user = "myuser";
+        String password = "remwell996";
+
+        String sqlQuery = "SELECT c.Client_ID, c.Name, COUNT(s.Service_ID) AS order_count " +
+                          "FROM Client c " +
+                          "LEFT JOIN Services s ON c.Client_ID = s.Client_ID " +
+                          "GROUP BY c.Client_ID, c.Name " +
+                          "ORDER BY order_count DESC " +
+                          "LIMIT 1";
+
+        try (
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+        ) {
+
+            if (rs.next()) {
+                String clientId = rs.getString("Client_ID");
+                String clientName = rs.getString("Name");
+                clientWithMostOrders = clientName + "Client ID: "+ clientId;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientWithMostOrders;
+    }
+
+    public static int calculateWeeklyRevenue() {
+        int weeklyRevenue = 0;
+        
+        String url = "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+        String user = "myuser";
+        String password = "remwell996";
+
+        String sqlQuery = "SELECT SUM(Service_Price) AS totalRevenue " +
+                          "FROM Services " +
+                          "WHERE Date_Added >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+        
+        try (
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+        ) {
+
+            if (rs.next()) {
+                weeklyRevenue = rs.getInt("totalRevenue");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return weeklyRevenue;
+    }
+
+    public static void getLastAddedClientID() {
+        String url = "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+        String user = "myuser";
+        String password = "remwell996";
+
+        String sqlQuery = "SELECT Client_ID FROM Client ORDER BY Date_Added DESC LIMIT 1";
+        
+        try (
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+        ) {
+            if (rs.next()) {
+                String clientId = rs.getString("Client_ID");
+                System.out.println("Last added client ID: " + clientId);
+                System.out.println("");
+            } else {
+                System.out.println("No clients found.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void getLastAddedServiceID() {
+        String url = "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
+        String user = "myuser";
+        String password = "remwell996";
+
+        String sqlQuery = "SELECT Service_ID FROM Services ORDER BY Date_Added DESC LIMIT 1";
+        
+        try (
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlQuery);
+        ) {
+            if (rs.next()) {
+                String serviceId = rs.getString("Service_ID");
+                System.out.println("Last added service ID: " + serviceId);
+            } else {
+                System.out.println("No services found.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static void offApplication(){
         System.out.println("------------------------------");
         System.out.println("        PROGRAM ENDED!        ");
@@ -497,6 +644,9 @@ public class Main {
                     break;
                 case 8:
                     updateService();
+                    break;
+                case 9:
+                    showStatistics();
                     break;
                 default:
                     offApplication();
