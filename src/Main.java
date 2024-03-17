@@ -25,6 +25,13 @@ public class Main {
     static String clientIDToBeAdded;
     static String serviceIDToBeAdded;
 
+    static String serviceIDToBeUpdated;
+    static String serviceTypeToBeUpdated;
+    static int servicePriceToBeUpdated;
+    static String serviceStatusToBeUpdated;
+    static String serviceInvoiceStatusToBeUpdated;
+
+
     public static void menu(){
         System.out.println("+++++++++++++ HELLO ADMIN +++++++++++++");
         System.out.println("1. VIEW CLIENTS");
@@ -384,6 +391,76 @@ public class Main {
 
     public static void updateService(){
         System.out.println("UPDATE SERVICE");
+        System.out.println("updateS");
+
+        System.out.println("SERVICES");
+        try (
+            Connection conn = DriverManager.getConnection(
+                  "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+                  "myuser", "remwell996");
+            Statement stmt = conn.createStatement();
+         ) {
+            
+            String strSelect = "select Client_ID, Service_ID, Service_Type, Service_Status, Service_Price, Invoice_Status from Services";
+            System.out.println("The SQL statement is: " + strSelect + "\n"); 
+    
+            ResultSet rset = stmt.executeQuery(strSelect);
+    
+            System.out.println("The records selected are:");
+            int rowCount = 0;
+
+            while(rset.next()) {   
+               String serviceType = rset.getString("Service_Type");  
+               String serviceID = rset.getString("Service_ID");  
+               String serviceStatus = rset.getString("Service_Status");  
+               String servicePrice = rset.getString("Service_Price");
+               String clientID = rset.getString("Client_ID");
+               String invoiceStatus   = rset.getString("Invoice_Status");      
+               System.out.println(serviceID+", "+clientID + ", " + serviceType + ", " + servicePrice  + ", " + serviceStatus + ", "+invoiceStatus );
+               ++rowCount;
+            }
+            System.out.println("Total number of records = " + rowCount);
+    
+         } catch(SQLException ex) {
+            ex.printStackTrace();
+         }  
+        Scanner sc = new Scanner(System.in);
+        Scanner intSc = new Scanner(System.in);
+        System.out.println("Update A service");
+        System.out.print("Enter the Service ID to update: ");
+        serviceIDToBeUpdated = sc.nextLine();
+        System.out.println("PhotoShop - 600");
+        System.out.println("Social Media Managing - 500");
+        System.out.println("Video editing - 700");
+        System.out.print("Updated service to be availed:");
+        serviceTypeToBeUpdated = sc.nextLine();
+        System.out.print("Updated price:");
+        servicePriceToBeUpdated = intSc.nextInt();
+        System.out.print("Update service status:");
+        serviceStatusToBeUpdated = sc.nextLine();
+        System.out.print("Update invoice status:");
+        serviceInvoiceStatusToBeUpdated = sc.nextLine();
+
+        updateServiceAction();
+    }
+
+    public static void updateServiceAction(){
+        try (
+            Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
+                "myuser", "remwell996");
+            Statement stmt = conn.createStatement();
+        ) {
+            //"UPDATE Client SET Name = '"+clientNameToUpdate+"', Email = '"+clientEmailToUpdate+"' WHERE Client_ID = '"+clientIDToUpdate+"'"
+            //Service_Type, Service_ID, Service_Status, Service_Price, Invoice_Status,Date_Added,Client_ID from Services
+        String sqlUpdateService = "UPDATE Services SET Service_Type = '"+serviceTypeToBeUpdated+"', Service_Price = "+servicePriceToBeUpdated+", Service_Status = '"+serviceStatusToBeUpdated+"', Invoice_Status = '"+serviceInvoiceStatusToBeUpdated+"' WHERE Service_ID = '"+serviceIDToBeUpdated+"'" ;
+        System.out.println("The SQL statement is: " + sqlUpdateService + "\n");  
+        int countDeletedServices = stmt.executeUpdate(sqlUpdateService);
+        System.out.println(countDeletedServices + " Service Record updated.\n");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         menu();
     }
 
