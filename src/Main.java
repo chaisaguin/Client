@@ -416,17 +416,19 @@ public class Main {
     
             ResultSet rset = stmt.executeQuery(strSelect);
             System.out.println("SERVICES RECORDS");
-            System.out.println("------------------------------------------");
+            System.out.println("----------------------------------------------------------------------------");
+            System.out.println("ServiceID, Service Status, Invoice Status, Service Price, Date, Client ID");
+            System.out.println("----------------------------------------------------------------------------");
             int rowCount = 0;
 
             while(rset.next()) {   
+            String serviceID = rset.getString("Service_ID");  
                String serviceType = rset.getString("Service_Type");  
-               String serviceID = rset.getString("Service_ID");  
                String serviceStatus = rset.getString("Service_Status");  
                String servicePrice = rset.getString("Service_Price");
                String clientID = rset.getString("Client_ID");
                String invoiceStatus   = rset.getString("Invoice_Status");      
-               System.out.println(serviceID+", "+clientID + ", " + serviceType + ", " + servicePrice  + ", " + serviceStatus + ", "+invoiceStatus );
+               System.out.println(serviceID+", "+  serviceStatus + ", " + serviceType + ", " + invoiceStatus + ", " + servicePrice + ", "+ clientID );
                ++rowCount;
             }
             System.out.println("------------------------------------------");
@@ -439,7 +441,7 @@ public class Main {
         Scanner intSc = new Scanner(System.in);
         System.out.println("\nPROCEED TO UPDATE A SERVICE...");
         System.out.println("------------------------------------------");
-        System.out.print("Enter the Service ID to Uupdate: ");
+        System.out.print("Enter the Service ID to Update: ");
         serviceIDToBeUpdated = sc.nextLine();
         System.out.println("Photoshoot - 600");
         System.out.println("Social Media Managing - 500");
