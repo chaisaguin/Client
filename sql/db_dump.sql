@@ -37,7 +37,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES ('C01','Remwell Pepito','remwellpepito@gmail.com','2024-03-16 16:28:52'),('C02','Mary Kate Saguin','katesaguin@gmail.com','2024-03-16 16:30:14'),('C03','Daren Jamito','darenjamito@gmail.com','2024-03-16 16:32:19'),('C04','Sefthon Bliss','sef@gmail.com','2024-03-17 04:00:53');
+INSERT INTO `client` VALUES ('C01','Rem Well Pepito','remwellpepito@gmail.com','2024-03-16 16:28:52'),('C02','Mary Kate Saguin','katesaguin@gmail.com','2024-03-16 16:30:14'),('C03','Daren Jamito','darenjamito@gmail.com','2024-03-16 16:32:19'),('C04','Sefthon Bliss','sef@gmail.com','2024-03-17 04:00:53');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES ('S01','Photoshoot',600,'Ongoing','Unpaid','2024-03-05 16:29:15','C01'),('S02','Social Media Managing',500,'Complete','Paid','2024-03-08 16:31:55','C02'),('S03','Video Editing',700,'Complete','Paid','2024-03-08 16:33:00','C02'),('S04','Photoshoot',600,'Complete','Unpaid','2024-03-10 16:33:22','C03'),('S05','Photoshoot',600,'Ongoing','unpaid','2024-03-17 04:02:39','C04'),('S06','Social Media Managing',500,'Ongoing','unpaid','2024-03-17 04:03:16','C04');
+INSERT INTO `services` VALUES ('S01','Photoshoot',600,'Ongoing','Unpaid','2024-03-04 16:29:15','C01'),('S02','Social Media Managing',500,'Complete','Paid','2024-03-07 16:31:55','C02'),('S03','Video Editing',700,'Complete','Paid','2024-03-07 16:33:00','C02'),('S04','Photoshoot',600,'Complete','Unpaid','2024-03-11 16:33:22','C03');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -81,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-17 19:23:17
+-- Dump completed on 2024-03-17 22:14:45

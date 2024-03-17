@@ -19,7 +19,7 @@ These are the following functions and features:
 
 
 ## 🗂️ HOW TO RECREATE THE DATABASE FROM THE SQL DUMP
-Make sure you are done with this step: [Java Database: MySQL JBDC Driver](https://www3.ntu.edu.sg/home/ehchua/p[MySQL JDBC DRIVER]rogramming/java/JDBC_Basic.html?fbclid=IwAR0Tb0gT4JBpLRwxk8c-f4Wsq0uVUvcyzBW-Ms3ZOEuAw87zfWTgQLN8oQE#zz-3)
+Make sure you are done with this step: [Java Database: MySQL JBDC Driver](https://www3.ntu.edu.sg/home/ehchua/programming/java/JDBC_Basic.html?fbclid=IwAR0Tb0gT4JBpLRwxk8c-f4Wsq0uVUvcyzBW-Ms3ZOEuAw87zfWTgQLN8oQE#zz-3)
 
 1. Ensure You Have Cloned the Repository: Confirm that you’ve cloned the entire application repository from GitHub, including the **“db_dump.sql”** file.
 
