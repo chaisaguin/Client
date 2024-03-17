@@ -68,7 +68,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES ('S01','Photoshoot',600,'Ongoing','Unpaid','2024-03-16 16:29:15','C01'),('S02','Social Media Managing',500,'Complete','Paid','2024-03-16 16:31:55','C02'),('S03','Video Editing',700,'Complete','Paid','2024-03-16 16:33:00','C02'),('S04','Photoshoot',600,'Complete','Unpaid','2024-03-16 16:33:22','C03'),('S05','Photoshoot',600,'Ongoing','unpaid','2024-03-17 04:02:39','C04'),('S06','Social Media Managing',500,'Ongoing','unpaid','2024-03-17 04:03:16','C04');
+INSERT INTO `services` VALUES ('S01','Photoshoot',600,'Ongoing','Unpaid','2024-03-05 16:29:15','C01'),('S02','Social Media Managing',500,'Complete','Paid','2024-03-08 16:31:55','C02'),('S03','Video Editing',700,'Complete','Paid','2024-03-08 16:33:00','C02'),('S04','Photoshoot',600,'Complete','Unpaid','2024-03-10 16:33:22','C03'),('S05','Photoshoot',600,'Ongoing','unpaid','2024-03-17 04:02:39','C04'),('S06','Social Media Managing',500,'Ongoing','unpaid','2024-03-17 04:03:16','C04');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

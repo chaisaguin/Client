@@ -19,6 +19,8 @@ These are the following functions and features:
 
 
 ## 🗂️ HOW TO RECREATE THE DATABASE FROM THE SQL DUMP
+Make sure you are done with this step: [Java Database: MySQL JBDC Driver](https://www3.ntu.edu.sg/home/ehchua/p[MySQL JDBC DRIVER]rogramming/java/JDBC_Basic.html?fbclid=IwAR0Tb0gT4JBpLRwxk8c-f4Wsq0uVUvcyzBW-Ms3ZOEuAw87zfWTgQLN8oQE#zz-3)
+
 1. If you have already cloned the whole files for our application from the git hub repository, make sure that you have included the sql dump file named as *‘db_dump.sql’* as this is crucial in obtaining the database.
 
 2. **Open your CMD:** Open your command line and make sure to locate your MySQL file. The goal is to find the root folder of your MySQL server application and locate its bin. An example of the file address or file path: “C:/ProgramFiles/MySql 8.0/mysql/bin”. This is assuming MySQL is installed in that directory.
