@@ -383,41 +383,51 @@ public class Main {
     }
 
     public static void updateService(){
-        System.out.println("updateS");
+        System.out.println("UPDATE SERVICE");
         menu();
     }
 
-    public static void offAplication(){
-        System.out.println("WE OUT");
-        System.out.println("Hello");
+    public static void offApplication(){
+        System.out.println("------------------------------");
+        System.out.println("        PROGRAM ENDED!        ");
         
     }
 
     public static void main(String[] args) throws Exception {
-        //make it switch case
         menu();
-        do{
-        if(menuCycle == 0){
-            offAplication();
-        }else if(menuCycle == 1){
-            viewClient();
-        }else if(menuCycle == 2){
-            addClient();
-        }else if(menuCycle == 3){
-            deleteClient();
-        }else if(menuCycle == 4){
-            updateClient();
-        }else if(menuCycle == 5){
-            viewService();
-        }else if(menuCycle == 6){
-            addService();
-        }else if(menuCycle == 7){
-            deleteService();
-        }else if(menuCycle == 8){
-            updateService();
+        while (menuCycle != 0) {
+            switch (menuCycle) {
+                case 1:
+                    viewClient();
+                    break;
+                case 2:
+                    addClient();
+                    break;
+                case 3:
+                    deleteClient();
+                    break;
+                case 4:
+                    updateClient();
+                    break;
+                case 5:
+                    viewService();
+                    break;
+                case 6:
+                    addService();
+                    break;
+                case 7:
+                    deleteService();
+                    break;
+                case 8:
+                    updateService();
+                    break;
+                default:
+                    offApplication();
+                    break;
+            }
         }
-        }while(menuCycle != 0);
-        offAplication();
-       
+        offApplication();
     }
+
 }
+    
