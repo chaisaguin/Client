@@ -33,7 +33,7 @@ public class Main {
 
 
     public static void menu(){
-        System.out.println("+++++++++++++ HELLO ADMIN +++++++++++++");
+        System.out.println("\n//------------ HELLO ADMIN ------------//");
         System.out.println("1. VIEW CLIENTS");
         System.out.println("2. ADD CLIENTS");
         System.out.println("3. DELETE CLIENTS");
@@ -44,12 +44,13 @@ public class Main {
         System.out.println("8. UPDATE A SERVICE");
         System.out.println("9. SHOW STATISTICS");
         System.out.println("ENTER 0 TO EXIT");
-        System.out.print("Answer:");
+        System.out.println("//-------------------------------------//");
+        System.out.print("Answer: ");
         menuCycle = sc.nextInt();
     }
 
     public static void viewClient(){
-        System.out.println("VIEW CLIENT/S");
+        System.out.println("VIEW CLIENTS");
         try (
          Connection conn = DriverManager.getConnection(
                "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
@@ -61,8 +62,10 @@ public class Main {
          System.out.println("The SQL statement is: " + strSelect + "\n");
  
          ResultSet rset = stmt.executeQuery(strSelect);
- 
-         System.out.println("The records selected are:");
+        
+         
+         System.out.println("CLIENTS IN RECORD:");
+         System.out.println("--------------------------------------------------");
          int rowCount = 0;
          
          while(rset.next()) {   
@@ -72,8 +75,8 @@ public class Main {
             System.out.println(clientID + ", " + name + ", " + email);
             ++rowCount;
          }
+         System.out.println("--------------------------------------------------");
          System.out.println("Total number of records = " + rowCount);
-         System.out.println("Hello");
  
       } catch(SQLException ex) {
          ex.printStackTrace();
@@ -83,13 +86,13 @@ public class Main {
     
 
     public static void addClient(){
-        System.out.println("ADDING CLIENT/S");
+        System.out.println("\nADDING CLIENTS");
 
         //add to show last na gi add na Client ID
         getLastAddedClientID();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Client name:");
+        System.out.print("Enter Client Name:");
         clientNameToAdd = scanner.nextLine();
         System.out.print("Enter Client Email:");
         clientEmailToAdd = scanner.nextLine();
@@ -105,7 +108,6 @@ public class Main {
                 "myuser", "remwell996");
             Statement stmt = conn.createStatement();
         ) {
-            //INSERT INTO Client (Client_ID, Name, Email) VALUES('C01', 'Rem Well Pepito', 'remwellpepito@gmail.com')
 
          String sqlAddClient = "INSERT INTO Client (Client_ID, Name, Email) VALUES('" + clientIDToAdd + "','" + clientNameToAdd + "','" + clientEmailToAdd + "')" ;
          System.out.println("The SQL statement is: " + sqlAddClient + "\n");  
@@ -122,7 +124,7 @@ public class Main {
 
     public static void deleteClient(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("DELETE CLIENT/S");
+        System.out.println("\nDELETE CLIENTS");
         System.out.print("Enter the Client ID to delete: ");
         clientIDToDelete = scanner.nextLine();
         deleteClientAction();
@@ -154,7 +156,7 @@ public class Main {
     }
 
     public static void updateClient(){
-        System.out.println("UPDATE CLIENT/S");
+        System.out.println("\nUPDATE CLIENT INFORMATION");
 
         try (
          Connection conn = DriverManager.getConnection(
@@ -167,8 +169,9 @@ public class Main {
          System.out.println("The SQL statement is: " + strSelect + "\n");
  
          ResultSet rset = stmt.executeQuery(strSelect);
- 
-         System.out.println("The records selected are:");
+
+         System.out.println("CLIENT RECORDS");
+         System.out.println("--------------------------------------------------");
          int rowCount = 0;
          
          while(rset.next()) {   
@@ -183,7 +186,7 @@ public class Main {
       }
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("ADDING CLIENT/S");
+        System.out.println("\nADDING CLIENTS");
         System.out.print("Enter Client ID:");
         clientIDToUpdate = scanner.nextLine();
 
@@ -201,7 +204,7 @@ public class Main {
     
             ResultSet rset = stmt.executeQuery(strSelect);
     
-            System.out.println("Here is the Client information");
+            System.out.println("Here is the Client Information:");
             int rowCount = 0;
             
             while(rset.next()) {   
@@ -210,8 +213,8 @@ public class Main {
                String    email   = rset.getString("Email");       
                System.out.println(clientID + ", " + name + ", " + email);
             }
-            System.out.println("Hello");
-    
+            System.out.println("--------------------------------------------------");   
+
          } catch(SQLException ex) {
             ex.printStackTrace();
          }
@@ -234,9 +237,11 @@ public class Main {
         ) {
 
          String sqlUpdateClient = "UPDATE Client SET Name = '"+clientNameToUpdate+"', Email = '"+clientEmailToUpdate+"' WHERE Client_ID = '"+clientIDToUpdate+"'" ;
-         System.out.println("The SQL statement is: " + sqlUpdateClient + "\n");  
+         System.out.println("The SQL statement is: " + sqlUpdateClient);  
          int countDeletedServices = stmt.executeUpdate(sqlUpdateClient);
+         System.out.println("--------------------------------------------------");
          System.out.println(countDeletedServices + " records updated to Client.\n");
+         
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -259,7 +264,11 @@ public class Main {
     
             ResultSet rset = stmt.executeQuery(strSelect);
     
-            System.out.println("The records selected are:");
+            
+            System.out.println("                                   SERVICES IN RECORD                            ");
+            System.out.println("------------------------------------------------------------------------------------------");
+            System.out.println("Service Type, Service ID, Service Status, Service Price, Invoice Status, Date, Client ID");
+            System.out.println("------------------------------------------------------------------------------------------");
             int rowCount = 0;
 
             while(rset.next()) {   
@@ -273,6 +282,7 @@ public class Main {
                System.out.println(serviceType+", "+serviceID + ", " + serviceStatus + ", " + servicePrice + ", " + invoiceStatus + ", "+ dateAdded+", "+ clientID);
                ++rowCount;
             }
+            System.out.println("------------------------------------------------------------------------------------------");
             System.out.println("Total number of records = " + rowCount);
     
          } catch(SQLException ex) {
@@ -282,17 +292,17 @@ public class Main {
     }
     
     public static void addService(){
-        System.out.println("addS");
+        System.out.println("ADDING SERVICE");
 
         //add to show last na gi add na service ID
         getLastAddedServiceID();
 
         Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
-        System.out.println("PhotoShop - 600");
+        System.out.println("Photoshoot - 600");
         System.out.println("Social Media Managing - 500");
         System.out.println("Video editing - 700");
-        System.out.print("What service to avail:");
+        System.out.print("What service to avail? :");
         clientServiceTypeToBeAdded =  scanner.nextLine();
         System.out.print("Service Price:");
         clientServicePriceToBeAdded =  scanner2.nextInt();
@@ -326,10 +336,10 @@ public class Main {
     }
 
     public static void deleteService(){
-        System.out.println("deleteS");
+        System.out.println("DELETE SERVICE");
 
         //Show list of Services 
-        System.out.println("VIEW SERVICES");
+        System.out.println("CURRENT SERVICES");
         try (
             Connection conn = DriverManager.getConnection(
                   "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
@@ -394,9 +404,6 @@ public class Main {
 
     public static void updateService(){
         System.out.println("UPDATE SERVICE");
-        System.out.println("updateS");
-
-        System.out.println("SERVICES");
         try (
             Connection conn = DriverManager.getConnection(
                   "jdbc:mysql://localhost:3306/ManagementSystem?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC",
@@ -408,8 +415,8 @@ public class Main {
             System.out.println("The SQL statement is: " + strSelect + "\n"); 
     
             ResultSet rset = stmt.executeQuery(strSelect);
-    
-            System.out.println("The records selected are:");
+            System.out.println("SERVICES RECORDS");
+            System.out.println("------------------------------------------");
             int rowCount = 0;
 
             while(rset.next()) {   
@@ -422,6 +429,7 @@ public class Main {
                System.out.println(serviceID+", "+clientID + ", " + serviceType + ", " + servicePrice  + ", " + serviceStatus + ", "+invoiceStatus );
                ++rowCount;
             }
+            System.out.println("------------------------------------------");
             System.out.println("Total number of records = " + rowCount);
     
          } catch(SQLException ex) {
@@ -429,10 +437,11 @@ public class Main {
          }  
         Scanner sc = new Scanner(System.in);
         Scanner intSc = new Scanner(System.in);
-        System.out.println("Update A service");
-        System.out.print("Enter the Service ID to update: ");
+        System.out.println("\nPROCEED TO UPDATE A SERVICE...");
+        System.out.println("------------------------------------------");
+        System.out.print("Enter the Service ID to Uupdate: ");
         serviceIDToBeUpdated = sc.nextLine();
-        System.out.println("PhotoShop - 600");
+        System.out.println("Photoshoot - 600");
         System.out.println("Social Media Managing - 500");
         System.out.println("Video editing - 700");
         System.out.print("Updated service to be availed:");
@@ -468,12 +477,13 @@ public class Main {
 
     public static void showStatistics(){
 
-        
-        System.out.println("The mmost services is: "+getMostFrequentService());
-        System.out.println("Client with the most orders: "+getClientWithMostOrders());
-        System.out.println(calculateWeeklyRevenue());
-
-        System.out.println("Show statistics");
+        System.out.println("\nDisplaying Statistics:");
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("MOST AVAILED SERVICES: "+getMostFrequentService());
+        System.out.println("CLIENT WITH MOST ORDERS: "+getClientWithMostOrders());
+        System.out.println("WEEKLY REVENUE: " + calculateWeeklyRevenue());
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("Analysis Displayed!");
         menu();
     }
 
@@ -528,7 +538,7 @@ public class Main {
             if (rs.next()) {
                 String clientId = rs.getString("Client_ID");
                 String clientName = rs.getString("Name");
-                clientWithMostOrders = clientName + "Client ID: "+ clientId;
+                clientWithMostOrders = clientName + " - Client ID: "+ clientId;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -578,7 +588,7 @@ public class Main {
         ) {
             if (rs.next()) {
                 String clientId = rs.getString("Client_ID");
-                System.out.println("Last added client ID: " + clientId);
+                System.out.println("Last added client ID: " + clientId );
                 System.out.println("");
             } else {
                 System.out.println("No clients found.");
@@ -614,6 +624,7 @@ public class Main {
     public static void offApplication(){
         System.out.println("------------------------------");
         System.out.println("        PROGRAM ENDED!        ");
+        System.out.println("------------------------------");
         
     }
 
